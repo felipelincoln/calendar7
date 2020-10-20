@@ -3,7 +3,7 @@ defmodule Calendar7.Release do
 
   @app :calendar7
 
-  # bin/prequest eval "Prequest.Release.migrate"
+  # bin/calendar7 eval "Calendar7.Release.migrate"
   def migrate do
     load_app()
 

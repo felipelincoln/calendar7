@@ -44,6 +44,6 @@ FROM alpine:3.11 AS production
 RUN apk add openssl ncurses-libs
 WORKDIR /app
 ARG MIX_ENV
-COPY --from=build /app/_build/$MIX_ENV/rel/prequest ./
+COPY --from=build /app/_build/$MIX_ENV/rel/calendar7 ./
 
-CMD ["bin/prequest", "start"]
+CMD ["bin/calendar7", "start"]
