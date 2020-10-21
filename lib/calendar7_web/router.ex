@@ -17,14 +17,12 @@ defmodule Calendar7Web.Router do
   scope "/", Calendar7Web do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/", EventLive.Index, :index
+    live "/new", EventLive.Index, :new
+    live "/:id/edit", EventLive.Index, :edit
 
-    live "/events", EventLive.Index, :index
-    live "/events/new", EventLive.Index, :new
-    live "/events/:id/edit", EventLive.Index, :edit
-
-    live "/events/:id", EventLive.Show, :show
-    live "/events/:id/show/edit", EventLive.Show, :edit
+    live "/:id", EventLive.Show, :show
+    live "/:id/show/edit", EventLive.Show, :edit
 
   end
 
