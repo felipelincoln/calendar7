@@ -88,7 +88,9 @@ defmodule Calendar7.Manage do
 
   """
   def delete_event(%Event{} = event) do
-    Repo.delete(event)
+    event
+    |> Repo.delete()
+    |> broadcast(:event_deleted)
   end
 
   @doc """

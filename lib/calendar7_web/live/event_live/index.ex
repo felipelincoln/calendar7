@@ -42,8 +42,18 @@ defmodule Calendar7Web.EventLive.Index do
   end
 
   @impl true
-  def handle_info({:event_created, event}, socket) do
-    {:noreply, update(socket, :events, fn events -> [event, events] end)}
+  def handle_info({:event_created, _event}, socket) do
+    {:noreply, assign(socket, :events, list_events())}
+  end
+
+  @impl true
+  def handle_info({:event_updated, _event}, socket) do
+    {:noreply, assign(socket, :events, list_events())}
+  end
+
+  @impl true
+  def handle_info({:event_deleted, _event}, socket) do
+    {:noreply, assign(socket, :events, list_events())}
   end
 
   defp list_events do
