@@ -1,5 +1,10 @@
 defmodule Calendar7Web.Router do
   use Calendar7Web, :router
+  use Pow.Phoenix.Router
+
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated, error_handler: Pow.Phoenix.PlugErrorHandler
+  end
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -14,8 +19,14 @@ defmodule Calendar7Web.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Calendar7Web do
+  scope "/" do
     pipe_through :browser
+
+    pow_routes()
+  end
+
+  scope "/", Calendar7Web do
+    pipe_through [:browser, :protected]
 
     live "/", EventLive.Index, :index
     live "/new", EventLive.Index, :new

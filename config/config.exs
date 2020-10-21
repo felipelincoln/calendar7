@@ -10,6 +10,11 @@ use Mix.Config
 config :calendar7,
   ecto_repos: [Calendar7.Repo]
 
+# Configures authentication
+config :calendar7, :pow,
+  user: Calendar7.Users.User,
+  repo: Calendar7.Repo
+
 # Configures the endpoint
 config :calendar7, Calendar7Web.Endpoint,
   url: [host: "localhost"],
