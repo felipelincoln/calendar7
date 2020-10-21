@@ -53,6 +53,7 @@ defmodule Calendar7.Manage do
     %Event{}
     |> Event.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:event_created)
   end
 
   @doc """
@@ -71,6 +72,7 @@ defmodule Calendar7.Manage do
     event
     |> Event.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:event_updated)
   end
 
   @doc """
@@ -100,5 +102,15 @@ defmodule Calendar7.Manage do
   """
   def change_event(%Event{} = event, attrs \\ %{}) do
     Event.changeset(event, attrs)
+  end
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(Calendar7.PubSub, "events")
+  end
+
+  defp broadcast({:error, _event} = changeset, _value), do: changeset
+  defp broadcast({:ok, event}, value) do
+    Phoenix.PubSub.broadcast(Calendar7.PubSub, "events", {value, event})
+    {:ok, event}
   end
 end

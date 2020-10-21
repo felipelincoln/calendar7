@@ -6,6 +6,7 @@ defmodule Calendar7Web.EventLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    if connected?(socket), do: Manage.subscribe()
     {:ok, assign(socket, :events, list_events())}
   end
 
@@ -38,6 +39,11 @@ defmodule Calendar7Web.EventLive.Index do
     {:ok, _} = Manage.delete_event(event)
 
     {:noreply, assign(socket, :events, list_events())}
+  end
+
+  @impl true
+  def handle_info({:event_created, event}, socket) do
+    {:noreply, update(socket, :events, fn events -> [event, events] end)}
   end
 
   defp list_events do
