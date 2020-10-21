@@ -6,10 +6,9 @@ defmodule Calendar7Web.ModalComponent do
     ~L"""
     <div id="<%= @id %>" class="phx-modal"
       phx-capture-click="close"
-      phx-window-keydown="close"
-      phx-key="escape"
+      phx-window-keydown="close" phx-key="escape"
       phx-target="#<%= @id %>"
-      phx-page-loading>
+      >
 
       <div class="phx-modal-content">
         <%= live_patch raw("&times;"), to: @return_to, class: "phx-modal-close" %>
