@@ -3,6 +3,7 @@
 <%= if @live_action in [:new, :edit] do %>
   <%= live_modal @socket, Calendar7Web.EventLive.FormComponent,
     id: @event.id || :new,
+    user_id: @current_user.id,
     title: @page_title,
     action: @live_action,
     event: @event,

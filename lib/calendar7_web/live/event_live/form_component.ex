@@ -41,7 +41,10 @@ defmodule Calendar7Web.EventLive.FormComponent do
   end
 
   defp save_event(socket, :new, event_params) do
-    case Manage.create_event(event_params) do
+    event_params
+    |> Map.put("user_id", socket.assigns.user_id)
+    |> Manage.create_event()
+    |> case do
       {:ok, _event} ->
         {:noreply,
          socket
