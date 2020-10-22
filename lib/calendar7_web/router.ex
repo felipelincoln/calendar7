@@ -26,9 +26,14 @@ defmodule Calendar7Web.Router do
   end
 
   scope "/", Calendar7Web do
-    pipe_through [:browser, :protected]
+    pipe_through :browser
 
     live "/", EventLive.Index, :index
+  end
+
+  scope "/", Calendar7Web do
+    pipe_through [:browser, :protected]
+
     live "/new", EventLive.Index, :new
     live "/:id/edit", EventLive.Index, :edit
 

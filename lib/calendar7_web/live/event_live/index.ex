@@ -3,11 +3,17 @@ defmodule Calendar7Web.EventLive.Index do
 
   alias Calendar7.Manage
   alias Calendar7.Manage.Event
+  alias Calendar7Web.Credentials
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     if connected?(socket), do: Manage.subscribe()
-    {:ok, assign(socket, :events, list_events())}
+    current_user = Credentials.get_user(socket, session)
+    socket =
+      socket
+      |> assign(:events, list_events())
+      |> assign(:current_user, current_user)
+    {:ok, socket}
   end
 
   @impl true
