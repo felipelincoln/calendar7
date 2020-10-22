@@ -3,7 +3,7 @@
 <%= if @live_action in [:new, :edit] do %>
   <%= live_modal @socket, Calendar7Web.EventLive.FormComponent,
     id: @event.id || :new,
-    user_id: @current_user.id,
+    user_id: @current_user,
     title: @page_title,
     action: @live_action,
     event: @event,
@@ -28,8 +28,8 @@
         <td><%= event.ends_at %></td>
 
         <td>
-          <%= if @current_user do %>
-            <span><%= live_redirect "Show", to: Routes.event_show_path(@socket, :show, event) %></span>
+          <span><%= live_redirect "Show", to: Routes.event_show_path(@socket, :show, event) %></span>
+          <%= if @current_user == event.user_id do %>
             <span><%= live_patch "Edit", to: Routes.event_index_path(@socket, :edit, event) %></span>
             <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: event.id, data: [confirm: "Are you sure?"] %></span>
           <% end %>

@@ -8,7 +8,12 @@ defmodule Calendar7Web.EventLive.Index do
   @impl true
   def mount(_params, session, socket) do
     if connected?(socket), do: Manage.subscribe()
-    current_user = Credentials.get_user(socket, session)
+    current_user =
+      case Credentials.get_user(socket, session) do
+        nil -> nil
+        user -> user.id
+      end
+
     socket =
       socket
       |> assign(:events, list_events())
