@@ -35,6 +35,19 @@
 
 <ul>
 <%= for event <- @events do %>
-  <li><%= event.starts_at.day %> <%= event.description %></li>
+  <li>
+    <%= event.starts_at.day %> <%= event.description %>
+
+    <%= live_redirect "Show", to: Routes.event_show_path(@socket, :show, event) %>
+    <%= if @current_user == event.user_id do %>
+      <%= live_patch "Edit", to: Routes.event_index_path(@socket, :edit, event) %>
+      <%= link "Delete",
+        to: "##{@id}",
+        phx_click: "delete",
+          phx_target: @myself,
+        phx_value_id: event.id,
+        data: [confirm: "Are you sure?"] %>
+    <% end %>
+  </li>
 <% end %>
 </ul>

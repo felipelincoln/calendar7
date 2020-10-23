@@ -5,6 +5,8 @@ defmodule Calendar7Web.EventLive.MonthComponent do
 
   @impl true
   def mount(socket) do
+    IO.inspect socket.assigns
+
     date = %{today() | day: 1}
     {:ok, assign_calendar(socket, date)}
   end
@@ -19,6 +21,19 @@ defmodule Calendar7Web.EventLive.MonthComponent do
   def handle_event("prev", _, socket) do
     date = socket.assigns.date |> prev_month()
     {:noreply, assign_calendar(socket, date)}
+  end
+
+  @impl true
+  def handle_event("delete", %{"id" => id}, socket) do
+    event = Manage.get_event!(id)
+    {:ok, _} = Manage.delete_event(event)
+
+    {:noreply, assign_calendar(socket)}
+  end
+
+  defp assign_calendar(socket) do
+    date = socket.assigns.date
+    assign_calendar(socket, date)
   end
 
   defp assign_calendar(socket, date) do
