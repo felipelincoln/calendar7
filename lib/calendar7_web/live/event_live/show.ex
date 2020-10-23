@@ -9,13 +9,12 @@ defmodule Calendar7Web.EventLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _, socket) do
+  def handle_params(%{"id" => id} = params, _, socket) do
+    ref_date = Map.get(params, "ref_date", "")
+
     {:noreply,
      socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
+     |> assign(:ref_date, ref_date)
      |> assign(:event, Manage.get_event!(id))}
   end
-
-  defp page_title(:show), do: "Show Event"
-  defp page_title(:edit), do: "Edit Event"
 end

@@ -38,7 +38,7 @@
   <li>
     <%= event.starts_at.day %> <%= event.description %>
 
-    <%= live_redirect "Show", to: Routes.event_show_path(@socket, :show, event) %>
+    <%= live_redirect "Show", to: Routes.event_show_path(@socket, :show, event, ref_date: Date.to_string(@date)) %>
     <%= if @current_user == event.user_id do %>
       <%= live_patch "Edit", to: Routes.event_index_path(@socket, :edit, event, date: Date.to_string(@date)) %>
       <%= link "Delete",

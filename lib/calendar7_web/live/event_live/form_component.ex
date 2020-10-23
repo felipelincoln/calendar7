@@ -56,6 +56,7 @@ defmodule Calendar7Web.EventLive.FormComponent do
     end
   end
 
+  defp today(nil), do: DateTime.utc_now()
   defp today(%Date{year: year, month: month}) do
     case DateTime.utc_now() do
       %{month: ^month, year: ^year} = now -> now

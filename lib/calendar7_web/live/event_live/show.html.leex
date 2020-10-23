@@ -1,14 +1,4 @@
 <h1>Show Event</h1>
-
-<%= if @live_action in [:edit] do %>
-  <%= live_modal @socket, Calendar7Web.EventLive.FormComponent,
-    id: @event.id,
-    title: @page_title,
-    action: @live_action,
-    event: @event,
-    return_to: Routes.event_show_path(@socket, :show, @event) %>
-<% end %>
-
 <ul>
 
   <li>
@@ -28,5 +18,4 @@
 
 </ul>
 
-<span><%= live_patch "Edit", to: Routes.event_show_path(@socket, :edit, @event), class: "button" %></span>
-<span><%= live_redirect "Back", to: Routes.event_index_path(@socket, :index) %></span>
+<span><%= live_redirect "Back", to: Routes.event_index_path(@socket, :index, date: @ref_date) %></span>
