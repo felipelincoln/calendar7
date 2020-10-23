@@ -1,6 +1,7 @@
 defmodule Calendar7Web.EventLive.Show do
   use Calendar7Web, :live_view
 
+  import Calendar7Web.EventLive.Helpers, only: [month_name: 1]
   alias Calendar7.Manage
 
   @impl true

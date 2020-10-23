@@ -4,7 +4,6 @@ defmodule Calendar7Web.Pow.Routes do
 
   @impl true
   def after_sign_out_path(conn) do
-    IO.puts "go to homepage"
     Routes.event_index_path(conn, :index)
   end
 end

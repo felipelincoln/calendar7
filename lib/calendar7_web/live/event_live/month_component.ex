@@ -1,6 +1,7 @@
 defmodule Calendar7Web.EventLive.MonthComponent do
   use Calendar7Web, :live_component
 
+  import Calendar7Web.EventLive.Helpers, only: [month_name: 1]
   alias Calendar7.Manage
 
   @impl true
@@ -52,22 +53,5 @@ defmodule Calendar7Web.EventLive.MonthComponent do
   defp day(date, week, weekday) do 
     day = week*7 + weekday - first_day_of_week(date) + 1
     if day <= days_in_month(date), do: day, else: 0
-  end
-
-  defp month_name(n) do
-    case n do
-      1 -> "January"
-      2 -> "February"
-      3 -> "March"
-      4 -> "April"
-      5 -> "May"
-      6 -> "June"
-      7 -> "July"
-      8 -> "August"
-      9 -> "September"
-      10 -> "October"
-      11 -> "November"
-      12 -> "December"
-    end
   end
 end

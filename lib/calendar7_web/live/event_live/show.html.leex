@@ -1,21 +1,12 @@
-<h1>Show Event</h1>
-<ul>
+<p class="text-center text-xl font-bold"><%= @event.starts_at.day %><br></p>
+<p class="text-center"><%= month_name(@event.starts_at.month) %> <%= @event.starts_at.year %></p>
 
-  <li>
-    <strong>Description:</strong>
-    <%= @event.description %>
-  </li>
+<br>
+<div class="w-1/2 mx-auto">
+  <%= @event.description %>
+  <br>
+  <%= live_redirect "back", to: Routes.event_index_path(@socket, :index, date: @ref_date) %> join invite
+</div>
 
-  <li>
-    <strong>Starts at:</strong>
-    <%= @event.starts_at %>
-  </li>
 
-  <li>
-    <strong>Ends at:</strong>
-    <%= @event.ends_at %>
-  </li>
 
-</ul>
-
-<span><%= live_redirect "Back", to: Routes.event_index_path(@socket, :index, date: @ref_date) %></span>
