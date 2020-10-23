@@ -30,6 +30,7 @@ defmodule Calendar7.Manage.Event do
       case DateTime.compare(value, starts_at) do
         :gt -> []
         :lt -> [ends_at: "must be greater than starting date"]
+        :eq -> [ends_at: "must be greater than starting date"]
       end
     end)
   end
