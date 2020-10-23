@@ -55,4 +55,17 @@ defmodule Calendar7Web.EventLive.FormComponent do
         {:noreply, assign(socket, changeset: changeset)}
     end
   end
+
+  defp today(%Date{year: year, month: month}) do
+    case DateTime.utc_now() do
+      %{month: ^month, year: ^year} = now -> now
+      now -> %{now | year: year, month: month, day: 1}
+    end
+  end
+
+  defp tomorrow(date) do
+    date
+    |> today()
+    |> DateTime.add(86400, :second)
+  end
 end

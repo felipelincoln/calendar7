@@ -1,7 +1,7 @@
 <div class="flex justify-between">
-  <button phx-click="prev" phx-target="<%= @myself %>">Previous</button>
-  <p><%= @date.year %> <%= month_name(@date.month) %></p>
-  <button phx-click="next" phx-target="<%= @myself %>">Next</button>
+  <%= live_patch "Previous", to: Routes.event_index_path(@socket, :index, date: prev(@date)) %>
+    <p><%= @date.year %> <%= month_name(@date.month) %></p>
+  <%= live_patch "Next", to: Routes.event_index_path(@socket, :index, date: next(@date)) %>
 </div>
 
 <br>
@@ -40,11 +40,11 @@
 
     <%= live_redirect "Show", to: Routes.event_show_path(@socket, :show, event) %>
     <%= if @current_user == event.user_id do %>
-      <%= live_patch "Edit", to: Routes.event_index_path(@socket, :edit, event) %>
+      <%= live_patch "Edit", to: Routes.event_index_path(@socket, :edit, event, date: Date.to_string(@date)) %>
       <%= link "Delete",
         to: "##{@id}",
         phx_click: "delete",
-          phx_target: @myself,
+        phx_target: @myself,
         phx_value_id: event.id,
         data: [confirm: "Are you sure?"] %>
     <% end %>

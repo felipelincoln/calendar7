@@ -11,11 +11,11 @@
   <%= error_tag f, :description %>
 
   <%= label f, :starts_at %>
-  <%= datetime_select f, :starts_at, year: [options: 2020..2025], default: DateTime.utc_now() %>
+  <%= datetime_select f, :starts_at, year: [options: 2020..2025], default: today(@date) %>
   <%= error_tag f, :starts_at %>
 
   <%= label f, :ends_at %>
-  <%= datetime_select f, :ends_at, year: [options: 2020..2025], default: DateTime.utc_now() |> DateTime.add(84600, :second) %>
+  <%= datetime_select f, :ends_at, year: [options: 2020..2025], default: tomorrow(@date) %>
   <%= error_tag f, :ends_at %>
 
   <%= submit "Save", phx_disable_with: "Saving..." %>
