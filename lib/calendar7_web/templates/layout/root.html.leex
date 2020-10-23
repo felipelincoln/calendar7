@@ -11,12 +11,22 @@
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <%= if Pow.Plug.current_user(@conn) do %>
-  <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>
-<% else %>
-  <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
-  <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
-<% end %>
-    <%= @inner_content %>
+    <nav class="flex max-w-screen-md mx-auto justify-between items-center px-4 h-16">
+      <p><a href="/">Calendar7</a></p>
+      <div>
+        <%= if Pow.Plug.current_user(@conn) do %>
+          <span> <%= get_user(Pow.Plug.current_user(@conn), :email) %></span>
+          <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>
+        <% else %>
+          <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "mr-4" %></span>
+          <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
+        <% end %>
+      </div>
+    </nav>
+
+    <div class="max-w-screen-md mx-auto px-4">
+      <%= @inner_content %>
+    </div>
+
   </body>
 </html>
