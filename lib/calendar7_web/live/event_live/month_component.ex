@@ -1,21 +1,34 @@
 defmodule Calendar7Web.EventLive.MonthComponent do
   use Calendar7Web, :live_component
 
+  alias Calendar7.Manage
+
   @impl true
   def mount(socket) do
-    {:ok, assign(socket, :date, today())}
+    date = %{today() | day: 1}
+    {:ok, assign_calendar(socket, date)}
   end
 
   @impl true
   def handle_event("next", _, socket) do
-    date = socket.assigns.date
-    {:noreply, assign(socket, :date, next_month(date))}
+    date = socket.assigns.date |> next_month()
+    {:noreply, assign_calendar(socket, date)}
   end
 
   @impl true
   def handle_event("prev", _, socket) do
-    date = socket.assigns.date
-    {:noreply, assign(socket, :date, prev_month(date))}
+    date = socket.assigns.date |> prev_month()
+    {:noreply, assign_calendar(socket, date)}
+  end
+
+  defp assign_calendar(socket, date) do
+    socket
+    |> assign(:date, date)
+    |> assign(:events, list_events(date))
+  end
+
+  defp list_events(date) do
+    Manage.list_events(from: date, to: next_month(date))
   end
 
   defp next_month(%Date{month: 12, year: year} = date), do: %{date | month: 1, year: year+1}
@@ -51,5 +64,4 @@ defmodule Calendar7Web.EventLive.MonthComponent do
       12 -> "December"
     end
   end
-
 end

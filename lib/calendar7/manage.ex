@@ -21,6 +21,17 @@ defmodule Calendar7.Manage do
     Repo.all(Event)
   end
 
+  def list_events(from: date_a, to: date_b) do
+    datetime_a = to_datetime(date_a)
+    datetime_b = to_datetime(date_b)
+
+    Repo.all(from e in Event, where: e.starts_at > ^datetime_a and e.starts_at < ^datetime_b)
+  end
+
+  defp to_datetime(%Date{year: year, month: month, day: day}) do
+    %{DateTime.utc_now() | year: year, month: month, day: day, hour: 0, minute: 0, second: 0}
+  end
+
   @doc """
   Gets a single event.
 

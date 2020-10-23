@@ -33,3 +33,8 @@
   </tbody>
 </table>
 
+<ul>
+<%= for event <- @events do %>
+  <li><%= event.starts_at.day %> <%= event.description %></li>
+<% end %>
+</ul>
