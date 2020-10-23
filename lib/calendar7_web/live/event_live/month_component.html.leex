@@ -1,0 +1,27 @@
+<table class="table-fixed w-full">
+  <thead>
+    <tr>
+      <th>Sun.</th>
+      <th>Mon.</th>
+      <th>Tues.</th>
+      <th>Wed.</th>
+      <th>Thurs.</th>
+      <th>Fri.</th>
+      <th>Sat.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for week <- 0..5 do %>
+      <tr>
+        <%= for weekday <- 0..6 do %>
+          <td class="text-center">
+            <%= if day(@date, week, weekday) > 0 do %>
+              <%= day(@date, week, weekday) %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

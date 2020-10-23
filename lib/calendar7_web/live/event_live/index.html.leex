@@ -13,26 +13,7 @@
 <p class="text-center"><%= link "Publish an event", to: Routes.event_index_path(@socket, :new) %></p>
 <p class="font-serif text-center text-lg">or<br>join events that matter to you.</p>
 
-<table class="table-fixed w-full">
-  <thead>
-    <tr>
-      <th>Sun.</th>
-      <th>Mon.</th>
-      <th>Tues.</th>
-      <th>Wed.</th>
-      <th>Thurs.</th>
-      <th>Fri.</th>
-      <th>Sat.</th>
-    </tr>
-  </thead>
-</table>
-
-live_component  get_month(october)
-
-
-
-
-
+<%= live_component @socket, Calendar7Web.EventLive.MonthComponent, id: "month" %>
 
 
 
