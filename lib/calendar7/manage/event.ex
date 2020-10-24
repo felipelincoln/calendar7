@@ -12,6 +12,7 @@ defmodule Calendar7.Manage.Event do
     timestamps()
 
     belongs_to :user, User
+    many_to_many :joined_users, User, join_through: "events_users"
   end
 
   @doc false

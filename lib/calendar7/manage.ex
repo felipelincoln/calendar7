@@ -117,6 +117,52 @@ defmodule Calendar7.Manage do
     Event.changeset(event, attrs)
   end
 
+  @doc """
+  Include an event to user's joined_events list.
+
+  ## Examples
+
+      iex> join_event(user, event)
+      {:ok, %User{}}
+
+  """
+  def join_event(user, event) do
+    user = Repo.preload(user, :joined_events)
+    events = [event | user.joined_events]
+
+    user
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:joined_events, events)
+    |> Repo.update()
+  end
+
+  @doc """
+  Remove an event from user's joined_events list
+
+  ## Examples
+
+      iex> leave_event(user, event)
+      {:ok, %User{}}
+
+  """
+  def leave_event(user, event) do
+    user = Repo.preload(user, :joined_events)
+    events = List.delete(user.joined_events, event)
+
+    user
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:joined_events, events)
+    |> Repo.update()
+  end
+
+  @doc """
+  Verifies if user has joined an event.
+  """
+  def has_joined?(user, event) do
+    user = Repo.preload(user, :joined_events)
+    event in user.joined_events
+  end
+
   def subscribe do
     Phoenix.PubSub.subscribe(Calendar7.PubSub, "events")
   end

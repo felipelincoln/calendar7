@@ -5,8 +5,14 @@
 <div class="w-1/2 mx-auto">
   <%= @event.description %>
   <br>
-  <%= live_redirect "back", to: Routes.event_index_path(@socket, :index, date: @ref_date) %> join invite
+  <%= live_redirect "back", to: Routes.event_index_path(@socket, :index, date: @ref_date) %>
+  <button phx-click="toggle_join">
+    <%= if @current_user do %>
+      <%= if @has_joined? do %>
+        leave
+      <%= else %>
+        join
+      <% end %>
+    <% end %>
+  </button>
 </div>
-
-
-

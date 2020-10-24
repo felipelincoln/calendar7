@@ -10,5 +10,6 @@ defmodule Calendar7.Users.User do
     timestamps()
 
     has_many :events, Event
+    many_to_many :joined_events, Event, join_through: "events_users", on_replace: :delete
   end
 end
