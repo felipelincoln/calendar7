@@ -1,55 +1,67 @@
-<div class="flex justify-between">
-  <%= live_patch "Previous", to: Routes.event_index_path(@socket, :index, date: prev(@date)) %>
-    <p><%= @date.year %> <%= month_name(@date.month) %></p>
-  <%= live_patch "Next", to: Routes.event_index_path(@socket, :index, date: next(@date)) %>
-</div>
-
-<br>
-
-<table class="table-fixed w-full">
-  <thead>
-    <tr>
-      <th>Sun.</th>
-      <th>Mon.</th>
-      <th>Tues.</th>
-      <th>Wed.</th>
-      <th>Thurs.</th>
-      <th>Fri.</th>
-      <th>Sat.</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for week <- 0..5 do %>
-      <tr>
-        <%= for weekday <- 0..6 do %>
-          <td class="text-center">
-            <%= if day(@date, week, weekday) > 0 do %>
-              <%= day(@date, week, weekday) %>
-            <% end %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<div class="bg-yellow-100">
-  <ul>
-  <%= for event <- @events do %>
-    <li>
-      <%= event.starts_at.day %> <%= event.description %>
-
-      <%= live_redirect "Show", to: Routes.event_show_path(@socket, :show, event, ref_date: Date.to_string(@date)) %>
-      <%= if @current_user == event.user_id do %>
-        <%= live_patch "Edit", to: Routes.event_index_path(@socket, :edit, event, date: Date.to_string(@date)) %>
-        <%= link "Delete",
-          to: "##{@id}",
-          phx_click: "delete",
-          phx_target: @myself,
-          phx_value_id: event.id,
-          data: [confirm: "Are you sure?"] %>
+<div class="bg-white rounded-lg shadow-lg flex w-full">
+  <div class="p-4 bg-teal-500 rounded-l-lg">
+    <div class="flex justify-between items-center w-56">
+      <%= live_patch to: Routes.event_index_path(@socket, :index, date: prev(@date)) do %>
+        <svg class="h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
       <% end %>
-    </li>
-  <% end %>
-  </ul>
+      <p class="text-white whitespace-no-wrap">
+        <span class="font-bold text-lg uppercase"><%= month_name(@date.month) %></span>
+        <span class="text-lg"><%= @date.year %></span>
+      </p>
+      <%= live_patch to: Routes.event_index_path(@socket, :index, date: next(@date)) do %>
+        <svg class="h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <% end %>
+    </div>
+
+    <div>
+      <ul>
+      <%= for event <- @events do %>
+        <li class="text-teal-900">
+          <%= event.starts_at.day %> <%= event.description %>
+
+          <%= live_redirect "Show", to: Routes.event_show_path(@socket, :show, event, ref_date: Date.to_string(@date)) %>
+          <%= if @current_user == event.user_id do %>
+            <%= live_patch "Edit", to: Routes.event_index_path(@socket, :edit, event, date: Date.to_string(@date)) %>
+            <%= link "Delete",
+              to: "##{@id}",
+              phx_click: "delete",
+              phx_target: @myself,
+              phx_value_id: event.id,
+              data: [confirm: "Are you sure?"] %>
+          <% end %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="p-4">
+    <table class="table-fixed w-full">
+      <thead>
+        <tr>
+          <th>Sun.</th>
+          <th>Mon.</th>
+          <th>Tues.</th>
+          <th>Wed.</th>
+          <th>Thurs.</th>
+          <th>Fri.</th>
+          <th>Sat.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for week <- 0..5 do %>
+          <tr>
+            <%= for weekday <- 0..6 do %>
+              <td class="text-center">
+                <%= if day(@date, week, weekday) > 0 do %>
+                  <%= day(@date, week, weekday) %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
 </div>
