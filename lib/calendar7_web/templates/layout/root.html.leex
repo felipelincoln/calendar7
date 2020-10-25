@@ -10,13 +10,15 @@
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
-  <body>
+  <body class="bg-teal-100">
     <nav class="flex max-w-screen-md mx-auto justify-between items-center px-4 h-16">
       <p><a href="/">Calendar7</a></p>
-      <div>
+      <div class="pl-4 flex-shrink min-w-0">
         <%= if Pow.Plug.current_user(@conn) do %>
-          <span> <%= get_user(Pow.Plug.current_user(@conn), :email) %></span>
-          <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>
+          <div class="flex justify-end">
+            <p class="flex-shrink min-w-0 truncate mr-4"> <%= get_user(Pow.Plug.current_user(@conn), :email) %></p>
+            <p class="flex-shrink-0"><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></p>
+          </div>
         <% else %>
           <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "mr-4" %></span>
           <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
