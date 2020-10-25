@@ -11,7 +11,7 @@
 <% end %>
 
 <div>
-  <p class="font-serif text-center font-serif text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">Keep track of your events</p>
+  <p class="font-serif text-center font-serif text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl">Keep track of your events</p>
   <p class="text-center py-2">
     <%= if @current_user do %>
       <%= live_patch "Publish an event", to: Routes.event_index_path(@socket, :new, date: Date.to_string(@date)) %>
@@ -19,7 +19,7 @@
       <%= link "Publish an event", to: Routes.event_index_path(@socket, :new, date: Date.to_string(@date)), class: "bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4" %>
     <% end %>
   </p>
-  <p class="font-serif text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">or<br>join events that matter to you.</p>
+  <p class="font-serif text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl">or<br>join events that matter to you.</p>
 </div>
 
 <%= live_component @socket, Calendar7Web.EventLive.MonthComponent,
