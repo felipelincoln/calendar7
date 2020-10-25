@@ -13,13 +13,13 @@
       <% end %>
     </div>
 
-    <div>
-      <ul>
+    <div class="w-56 mt-4 pt-4 border-t border-white border-opacity-50">
       <%= for event <- @events do %>
-        <li class="text-teal-900">
-          <%= event.starts_at.day %> <%= event.description %>
+        <p class="text-white truncate">
+        <span class="font-bold w-5 mr-2 inline-block text-right"><%= event.starts_at.day %></span>
+        <span class="hover:underline"><%= live_redirect event.description, to: Routes.event_show_path(@socket, :show, event, ref_date: Date.to_string(@date)) %></span>
 
-          <%= live_redirect "Show", to: Routes.event_show_path(@socket, :show, event, ref_date: Date.to_string(@date)) %>
+          <!-- to remove 
           <%= if @current_user == event.user_id do %>
             <%= live_patch "Edit", to: Routes.event_index_path(@socket, :edit, event, date: Date.to_string(@date)) %>
             <%= link "Delete",
@@ -29,15 +29,15 @@
               phx_value_id: event.id,
               data: [confirm: "Are you sure?"] %>
           <% end %>
-        </li>
+          -->
+        </p>
       <% end %>
-      </ul>
     </div>
   </div>
 
   <div class="p-4">
-    <table class="table-fixed w-full">
-      <thead>
+    <table class="table-fixed w-full text-gray-700">
+      <thead class="text-teal-900 text-opacity-50 text-xs">
         <tr>
           <th>Sun.</th>
           <th>Mon.</th>
