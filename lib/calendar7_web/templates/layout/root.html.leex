@@ -10,9 +10,9 @@
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
-  <body class="bg-teal-100">
-    <nav class="flex max-w-screen-md mx-auto justify-between items-center px-4 h-16">
-      <p><a href="/">Calendar7</a></p>
+  <body>
+    <nav class="flex max-w-screen-lg mx-auto justify-between items-center px-4 h-16">
+      <p><a href="/" class="font-bold text-lg">Calendar7</a></p>
       <div class="pl-4 flex-shrink min-w-0">
         <%= if Pow.Plug.current_user(@conn) do %>
           <div class="flex justify-end">
@@ -20,8 +20,8 @@
             <p class="flex-shrink-0"><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></p>
           </div>
         <% else %>
-          <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "mr-4" %></span>
-          <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
+          <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "mr-4 hover:underline" %></span>
+          <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "bg-transparent hover:bg-black text-black hover:text-white py-1 px-4 border border-black hover:border-transparent" %></span>
         <% end %>
       </div>
     </nav>

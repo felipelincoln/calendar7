@@ -10,17 +10,18 @@
     return_to: Routes.event_index_path(@socket, :index, date: Date.to_string(@date)) %>
 <% end %>
 
-<p class="font-serif text-center text-lg">Keep track of your events</p>
-<p class="text-center">
-  <%= if @current_user do %>
-    <%= live_patch "Publish an event", to: Routes.event_index_path(@socket, :new, date: Date.to_string(@date)) %>
-  <% else %>
-    <%= link "Publish an event", to: Routes.event_index_path(@socket, :new, date: Date.to_string(@date)) %>
-  <% end %>
-</p>
-<p class="font-serif text-center text-lg">or<br>join events that matter to you.</p>
+<div>
+  <p class="font-serif text-center font-serif text-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">Keep track of your events</p>
+  <p class="text-center py-2">
+    <%= if @current_user do %>
+      <%= live_patch "Publish an event", to: Routes.event_index_path(@socket, :new, date: Date.to_string(@date)) %>
+    <% else %>
+      <%= link "Publish an event", to: Routes.event_index_path(@socket, :new, date: Date.to_string(@date)), class: "bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4" %>
+    <% end %>
+  </p>
+  <p class="font-serif text-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl">or<br>join events that matter to you.</p>
+</div>
 
-<br> 
 <%= live_component @socket, Calendar7Web.EventLive.MonthComponent,
   id: "calendar#{@calendar_id}",
   current_user: @current_user,
