@@ -58,13 +58,13 @@ defmodule Calendar7Web.EventLive.Index do
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Event")
+    |> assign(:page_title, "New event")
     |> assign(:event, %Event{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Events")
+    |> assign(:page_title, "Manage your events")
     |> assign(:event, nil)
   end
 
