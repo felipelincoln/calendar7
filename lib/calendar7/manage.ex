@@ -25,7 +25,7 @@ defmodule Calendar7.Manage do
     datetime_a = to_datetime(date_a)
     datetime_b = to_datetime(date_b)
 
-    Repo.all(from e in Event, where: e.starts_at > ^datetime_a and e.starts_at < ^datetime_b)
+    Repo.all(from e in Event, where: e.starts_at > ^datetime_a and e.starts_at < ^datetime_b, order_by: [asc: :starts_at])
   end
 
   defp to_datetime(%Date{year: year, month: month, day: day}) do
