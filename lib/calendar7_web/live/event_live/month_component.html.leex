@@ -1,5 +1,5 @@
-<div class="bg-white rounded-lg shadow-lg flex flex-col sm:flex-row w-full">
-  <div class="bg-teal-500 rounded-t-lg sm:rounded-l-lg sm:rounded-t-none">
+<div class="bg-white sm:rounded-lg shadow-lg flex flex-col sm:flex-row w-screen sm:w-full">
+  <div class="bg-teal-500 sm:rounded-l-lg sm:rounded-t-none">
     <div class="flex justify-between items-center w-full sm:w-64">
       <%= live_patch to: Routes.event_index_path(@socket, :index, date: prev(@date)), class: "p-4" do %>
         <svg class="h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -34,7 +34,7 @@
   </div>
 
   <div class="p-4">
-    <table class="table-fixed w-full text-gray-700">
+    <table class="table-fixed w-full text-gray-700 cursor-default">
       <thead class="text-teal-900 text-opacity-50 text-xs">
         <tr class="h-8">
           <th>Sun.</th>
@@ -54,7 +54,7 @@
               <td class="text-center">
                 <%= if day > 0 do %>
                   <span class="<%= if has_event?(@events, @date, day), do: 'font-bold text-teal-600' %>">
-                    <span class="<%= if is_today?(@date, day), do: 'text-white text-sm bg-teal-500 font-bold p-2 rounded-xl' %>"><%= day %></span>
+                    <span class="<%= if is_today?(@date, day), do: 'text-white text-sm bg-teal-500 font-bold p-2 rounded-xl' %>" title="<%= if is_today?(@date, day), do: 'today' %>"><%= day %></span>
                   </span>
                 <% end %>
               </td>
