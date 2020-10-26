@@ -72,22 +72,23 @@ defmodule Calendar7Web.EventLive.Index do
   # broadcast refresh calendar component
 
   @impl true
-  def handle_info({:event_created, _event}, socket) do
-    {:noreply, assign_calendar_new_id(socket)}
-  end
+  def handle_info({:event_created, _event}, socket), do: handle_broadcast(socket)
 
   @impl true
-  def handle_info({:event_updated, _event}, socket) do
-    {:noreply, assign_calendar_new_id(socket)}
-  end
+  def handle_info({:event_updated, _event}, socket), do: handle_broadcast(socket)
 
   @impl true
-  def handle_info({:event_deleted, _event}, socket) do
-    {:noreply, assign_calendar_new_id(socket)}
-  end
+  def handle_info({:event_deleted, _event}, socket), do: handle_broadcast(socket)
 
-  defp assign_calendar_new_id(socket) do
+  defp handle_broadcast(socket) do
     calendar_id = socket.assigns.calendar_id
-    assign(socket, :calendar_id, calendar_id + 1)
+
+    socket =
+      socket
+      |> assign(:calendar_id, calendar_id + 1)
+      |> clear_flash()
+      |> put_flash(:refresh, "Refreshed!")
+
+    {:noreply, socket}
   end
 end

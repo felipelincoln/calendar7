@@ -1,11 +1,20 @@
 <div>
-  <p class="alert alert-info" role="alert"
-    phx-click="lv:clear-flash"
-    phx-value-key="info"><%= live_flash(@flash, :info) %></p>
-
-  <p class="alert alert-danger" role="alert"
-    phx-click="lv:clear-flash"
-    phx-value-key="error"><%= live_flash(@flash, :error) %></p>
-
   <%= @inner_content %>
+
+  <%= if live_flash(@flash, :info) do %>
+    <p class="mx-4 mt-3 text-sm text-gray-700 truncate" role="alert"
+      phx-click="lv:clear-flash"
+      phx-value-key="info">
+      <svg class="w-4 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+      <%= live_flash(@flash, :info) %>
+    </p>
+  <% end %>
+  <%= if live_flash(@flash, :refresh) do %>
+    <p class="mx-4 mt-3 text-sm text-gray-700 truncate" role="alert"
+      phx-click="lv:clear-flash"
+      phx-value-key="refresh">
+      <svg class="w-4 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+      <%= live_flash(@flash, :refresh) %>
+    </p>
+  <% end %>
 </div>

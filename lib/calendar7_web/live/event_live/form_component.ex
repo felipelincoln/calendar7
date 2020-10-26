@@ -32,7 +32,7 @@ defmodule Calendar7Web.EventLive.FormComponent do
       {:ok, _event} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Event updated successfully")
+         |> put_flash(:info, "Updated!")
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -48,7 +48,7 @@ defmodule Calendar7Web.EventLive.FormComponent do
       {:ok, _event} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Event created successfully")
+         |> put_flash(:info, "Created!")
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
