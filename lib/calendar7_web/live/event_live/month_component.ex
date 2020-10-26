@@ -3,6 +3,7 @@ defmodule Calendar7Web.EventLive.MonthComponent do
 
   import Calendar7Web.EventLive.Helpers, only: [month_name: 1]
   alias Calendar7.Manage
+  alias Calendar7.Repo
 
   @impl true
   def update(assigns, socket) do
@@ -66,5 +67,20 @@ defmodule Calendar7Web.EventLive.MonthComponent do
 
   defp is_today?(date, day) do
     %{date | day: day} == Date.utc_today()
+  end
+
+  defp has_joined?(_user_id, nil), do: false
+  defp has_joined?(user_id, event) do
+    event
+    |> Repo.preload(:joined_users)
+    |> Map.get(:joined_users)
+    |> Enum.map(fn u -> u.id == user_id end)
+    |> Enum.any?()
+  end
+
+  defp event(events, date, day) do
+    events
+    |> Enum.filter(fn ev -> DateTime.to_date(ev.starts_at) == %{date | day: day} end)
+    |> List.first
   end
 end

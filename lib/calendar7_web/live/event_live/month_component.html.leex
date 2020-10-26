@@ -64,8 +64,16 @@
               <% day = day(@date, week, weekday) %>
               <td class="text-center">
                 <%= if day > 0 do %>
-                  <span class="<%= if has_event?(@events, @date, day), do: 'font-bold text-teal-600' %>">
-                    <span class="<%= if is_today?(@date, day), do: 'text-white text-sm bg-teal-500 font-bold p-2 rounded-xl' %>" title="<%= if is_today?(@date, day), do: 'today' %>"><%= day %></span>
+                  <span class="<%= if has_event?(@events, @date, day), do: 'font-bold text-teal-600 bg-teal-100 inline-block w-8 p-1 rounded-xl' %>">
+                    <%= if has_joined?(@current_user, event(@events, @date, day)) do %>
+                      <span class="text-white text-sm bg-pink-500 font-bold inline-block w-8 p-1 rounded-xl" title="you joined this event"><%= day %></span>
+                    <% else %>
+                      <%= if is_today?(@date, day) do %>
+                        <span class="text-white text-sm bg-teal-500 font-bold inline-block w-8 p-1 rounded-xl" title="today"><%= day %></span>
+                      <% else %>
+                        <span><%= day %></span>
+                      <% end %>
+                    <% end %>
                   </span>
                 <% end %>
               </td>
