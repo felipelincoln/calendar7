@@ -54,4 +54,17 @@ defmodule Calendar7Web.EventLive.MonthComponent do
     day = week*7 + weekday - first_day_of_week(date) + 1
     if day <= days_in_month(date), do: day, else: 0
   end
+
+  defp has_event?(events, date, day) do
+    event_dates =
+      events
+      |> Enum.map(fn ev -> ev.starts_at end)
+      |> Enum.map(&DateTime.to_date()/1)
+
+    %{date | day: day} in event_dates
+  end
+
+  defp is_today?(date, day) do
+    %{date | day: day} == Date.utc_today()
+  end
 end

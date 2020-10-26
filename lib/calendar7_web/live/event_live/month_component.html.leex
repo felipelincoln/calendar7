@@ -1,19 +1,19 @@
 <div class="bg-white rounded-lg shadow-lg flex w-full">
-  <div class="p-4 bg-teal-500 rounded-l-lg">
-    <div class="flex justify-between items-center w-56">
-      <%= live_patch to: Routes.event_index_path(@socket, :index, date: prev(@date)) do %>
+  <div class="bg-teal-500 rounded-l-lg">
+    <div class="flex justify-between items-center w-64">
+      <%= live_patch to: Routes.event_index_path(@socket, :index, date: prev(@date)), class: "p-4" do %>
         <svg class="h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
       <% end %>
-      <p class="text-white whitespace-no-wrap">
+      <p class="text-white whitespace-no-wrap py-4">
         <span class="font-bold text-lg uppercase"><%= month_name(@date.month) %></span>
         <span class="text-lg"><%= @date.year %></span>
       </p>
-      <%= live_patch to: Routes.event_index_path(@socket, :index, date: next(@date)) do %>
+      <%= live_patch to: Routes.event_index_path(@socket, :index, date: next(@date)), class: "p-4" do %>
         <svg class="h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       <% end %>
     </div>
 
-    <div class="w-56 mt-4 pt-4 border-t border-white border-opacity-50">
+    <div class="w-56 p-4 pl-0 ml-4 mb-4 border-t border-white border-opacity-50">
       <%= for event <- @events do %>
         <p class="text-white truncate">
         <span class="font-bold w-5 mr-2 inline-block text-right"><%= event.starts_at.day %></span>
@@ -38,7 +38,7 @@
   <div class="p-4">
     <table class="table-fixed w-full text-gray-700">
       <thead class="text-teal-900 text-opacity-50 text-xs">
-        <tr>
+        <tr class="h-8">
           <th>Sun.</th>
           <th>Mon.</th>
           <th>Tues.</th>
@@ -50,11 +50,14 @@
       </thead>
       <tbody>
         <%= for week <- 0..5 do %>
-          <tr>
+          <tr class="h-8">
             <%= for weekday <- 0..6 do %>
+              <% day = day(@date, week, weekday) %>
               <td class="text-center">
-                <%= if day(@date, week, weekday) > 0 do %>
-                  <%= day(@date, week, weekday) %>
+                <%= if day > 0 do %>
+                  <span class="<%= if has_event?(@events, @date, day), do: 'font-bold text-teal-600' %>">
+                    <span class="<%= if is_today?(@date, day), do: 'text-white text-sm bg-teal-500 font-bold p-2 rounded-xl' %>"><%= day %></span>
+                  </span>
                 <% end %>
               </td>
             <% end %>
