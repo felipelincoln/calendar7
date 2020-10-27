@@ -1,13 +1,14 @@
 <p class="pt-8 text-gray-800 text-center text-4xl sm:text-5xl md:text-6xl">
-  <span><%= @event.starts_at.day %></span>
+  <span><%= @event.starts_at.day %></span><!--
+  --><span class="text-4xl text-gray-700 capitalize"> <%= month_name(@event.starts_at.month) %></span>
 </p>
-<p class="text-center">
-<%= if @current_user do %>
-  <button phx-click="toggle_join" class="bg-teal-500 hover:bg-teal-700 px-4 py-2 rounded font-bold text-white">
-    <%= if @has_joined?, do: "Leave", else: "Join" %>
-  </button>
-<% end %>
-  </p>
+<p class="text-center pb-8">
+  <%= if @current_user do %>
+    <button phx-click="toggle_join" class="bg-teal-500 hover:bg-teal-700 w-24 py-2 rounded font-bold text-white">
+      <%= if @has_joined?, do: "Leave", else: "Join" %>
+    </button>
+  <% end %>
+</p>
 
 
 <p class="mx-4 my-3 text-gray-800 text-sm">
@@ -18,7 +19,7 @@
 </p>
 
 <div class="w-screen sm:w-full sm:mx-4 p-4 bg-white sm:rounded-lg shadow-lg">
-  <p class="text-sm text-gray-600">
+  <p class="text-sm text-gray-600 mr-32">
     <svg class="w-4 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
     <span> 
       <%= if DateTime.to_date(@event.starts_at) != DateTime.to_date(@event.ends_at) do %>
@@ -30,12 +31,5 @@
       <% end %>
     </span>
   </p>
-
-  <p class="text-gray-800 border-l-4 px-4 my-4 <%= if @has_joined?, do: 'border-pink-500' %>"><%= @event.description %></p>
-
+  <p class="text-gray-800 border-l-4 px-4 my-4 max-w-lg <%= if @has_joined?, do: 'border-pink-500' %>"><%= @event.description %></p>
 </div>
-
-
-
-
-
