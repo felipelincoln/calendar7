@@ -1,19 +1,19 @@
-<p class="pt-8 pb-4 text-gray-800 text-center text-4xl sm:text-5xl md:text-6xl">
+<p class="pt-8 text-gray-800 text-center text-4xl sm:text-5xl md:text-6xl">
   <span><%= @event.starts_at.day %></span>
-
-
-  <%= if @current_user do %>
-    <button phx-click="toggle_join" class="ml-2 bg-teal-500 hover:bg-teal-700 px-3 rounded-full text-xs font-bold text-white">
-      <%= if @has_joined?, do: "Leave", else: "Join" %>
-    </button>
-  <% end %>
 </p>
+<p class="text-center">
+<%= if @current_user do %>
+  <button phx-click="toggle_join" class="bg-teal-500 hover:bg-teal-700 px-4 py-2 rounded font-bold text-white">
+    <%= if @has_joined?, do: "Leave", else: "Join" %>
+  </button>
+<% end %>
+  </p>
 
 
 <p class="mx-4 my-3 text-gray-800 text-sm">
   <%= live_redirect to: Routes.event_index_path(@socket, :index, date: @ref_date) do %>
     <svg class="w-4 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-    Back to <%= Date.from_iso8601!(@ref_date).month |> month_name() |> String.capitalize %> <%= Date.from_iso8601!(@ref_date).year %>
+    Back to <%= back_to_date(@ref_date) %>
   <% end %>
 </p>
 

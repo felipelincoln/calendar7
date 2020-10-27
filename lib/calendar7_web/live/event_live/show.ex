@@ -64,4 +64,16 @@ defmodule Calendar7Web.EventLive.Show do
   defp msg(false), do: "You have left this event!"
   defp fix_minutes(0), do: "00"
   defp fix_minutes(x), do: x
+  defp back_to_date("") do
+    Date.utc_today()
+    |> Date.to_string()
+    |> back_to_date()
+  end
+  defp back_to_date(date) do
+    Date.from_iso8601!(date).month
+    |> month_name()
+    |> String.capitalize 
+    |> concat(" #{Date.from_iso8601!(date).year}")
+  end
+  defp concat(a, b), do: a <> b
 end
