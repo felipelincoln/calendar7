@@ -62,4 +62,6 @@ defmodule Calendar7Web.EventLive.Show do
 
   defp msg(true), do: "You have joined this event!"
   defp msg(false), do: "You have left this event!"
+  defp fix_minutes(0), do: "00"
+  defp fix_minutes(x), do: x
 end

@@ -1,30 +1,38 @@
 <p class="pt-8 pb-4 text-gray-800 text-center text-4xl sm:text-5xl md:text-6xl">
   <span><%= @event.starts_at.day %></span>
+
+
+  <%= if @current_user do %>
+    <button phx-click="toggle_join" class="ml-2 bg-teal-500 hover:bg-teal-700 px-3 rounded-full text-xs font-bold text-white">
+      <%= if @has_joined?, do: "Leave", else: "Join" %>
+    </button>
+  <% end %>
 </p>
 
 
-  <%= live_redirect "back", to: Routes.event_index_path(@socket, :index, date: @ref_date) %>
+<p class="mx-4 my-3 text-gray-800 text-sm">
+  <%= live_redirect to: Routes.event_index_path(@socket, :index, date: @ref_date) do %>
+    <svg class="w-4 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+    Back to <%= Date.from_iso8601!(@ref_date).month |> month_name() |> String.capitalize %> <%= Date.from_iso8601!(@ref_date).year %>
+  <% end %>
+</p>
 
 <div class="sm:mx-4 p-4 bg-white sm:rounded-lg shadow-lg">
   <p class="text-sm text-gray-600">
     <svg class="w-4 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
     <span> 
       <%= if DateTime.to_date(@event.starts_at) != DateTime.to_date(@event.ends_at) do %>
-        <%= "#{@event.starts_at |> week_name()}, #{@event.starts_at.day} #{@event.starts_at.month |> month_name()} #{@event.starts_at.hour}:#{@event.starts_at.minute}" %>
-        <%= " - #{@event.ends_at |> week_name()}, #{@event.ends_at.day} #{@event.ends_at.month |> month_name()} #{@event.ends_at.hour}:#{@event.ends_at.minute}" %>
+        <%= "#{@event.starts_at |> week_name()}, #{@event.starts_at.day} #{@event.starts_at.month |> month_name()} #{@event.starts_at.hour}:#{fix_minutes(@event.starts_at.minute)}" %>
+        <%= " - #{@event.ends_at |> week_name()}, #{@event.ends_at.day} #{@event.ends_at.month |> month_name()} #{@event.ends_at.hour}:#{fix_minutes(@event.ends_at.minute)}" %>
       <% else %>
-        <%= "#{@event.starts_at |> week_name()}, #{@event.starts_at.day} #{@event.starts_at.month |> month_name()} #{@event.starts_at.hour}:#{@event.starts_at.minute}" %>
-        <%= " - #{@event.ends_at.hour}:#{@event.ends_at.minute}" %>
+        <%= "#{@event.starts_at |> week_name()}, #{@event.starts_at.day} #{@event.starts_at.month |> month_name()} #{@event.starts_at.hour}:#{fix_minutes(@event.starts_at.minute)}" %>
+        <%= " - #{@event.ends_at.hour}:#{fix_minutes(@event.ends_at.minute)}" %>
       <% end %>
     </span>
   </p>
-  <p class="text-gray-800 border-l-4 px-4 mt-4 <%= if @has_joined?, do: 'border-pink-500' %>"><%= @event.description %></p>
 
-  <button phx-click="toggle_join" class="">
-    <%= if @current_user do %>
-      <%= if @has_joined?, do: "leave", else: "join" %>
-    <% end %>
-  </button>
+  <p class="text-gray-800 border-l-4 px-4 my-4 <%= if @has_joined?, do: 'border-pink-500' %>"><%= @event.description %></p>
+
 </div>
 
 
