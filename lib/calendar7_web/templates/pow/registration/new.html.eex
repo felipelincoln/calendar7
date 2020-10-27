@@ -1,28 +1,32 @@
-<h1>Register</h1>
+<div class="w-full max-w-xs pt-8">
+  <%= form_for @changeset, @action, [as: :user, class: "bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4"], fn f -> %>
+    <div class="mb-4">
+      <%= label f, Pow.Ecto.Schema.user_id_field(@changeset), class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset), class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+      <p class="text-red-500 text-xs pt-1"><%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %></p>
+    </div>
 
-<%= form_for @changeset, @action, [as: :user], fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+    <div class="mb-4">
+      <%= label f, :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= password_input f, :password, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+      <p class="text-red-500 text-xs pt-1"> <%= error_tag f, :password %></p>
+    </div>
+
+    <div class="mb-6">
+      <%= label f, :password_confirmation, class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= password_input f, :password_confirmation, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+      <p class="text-red-500 text-xs pt-1"> <%= error_tag f, :password_confirmation %></p>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <%= submit "Register", class: "bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
     </div>
   <% end %>
+</div>
 
-  <%= label f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-  <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-  <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-
-  <%= label f, :password %>
-  <%= password_input f, :password %>
-  <%= error_tag f, :password %>
-
-  <%= label f, :password_confirmation %>
-  <%= password_input f, :password_confirmation %>
-  <%= error_tag f, :password_confirmation %>
-
-  <div>
-    <%= submit "Register" %>
-  </div>
+<%= if @changeset.action do %>
+  <p class="mx-4 mt-3 text-sm text-gray-700 max-w-xs" role="alert">
+    <svg class="w-4 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    <span>Oops, something went wrong! Please check the errors below.</span>
+  </p>
 <% end %>
-
-
-<span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
