@@ -1,4 +1,5 @@
-<h2 class="text-teal-700 text-lg font-bold pb-4"><%= @title %></h2>
+<h2 class="text-teal-700 text-lg font-bold pt-2 pb-4"><%= @title %></h2>
+<p class="border-t border-teal-700 border-opacity-50 pb-6"></p>
 
 <%= f = form_for @changeset, "#",
   id: "event-form",
@@ -7,11 +8,11 @@
   phx_change: "validate",
   phx_submit: "save" %>
 
-  <div class="flex flex-wrap -mx-3 mb-6">
+  <div class="flex flex-wrap -mx-3 mb-4">
     <div class="w-full px-3">
       <%= label f, :description, class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
-      <%= text_input f, :description, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" %>
-      <p class="text-red-500 text-xs italic"><%= error_tag f, :description %></p>
+      <%= textarea f, :description, rows: 5, class: "resize-none appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" %>
+      <p class="text-red-500 text-xs"><%= error_tag f, :description %></p>
     </div>
   </div>
 
@@ -19,7 +20,7 @@
   <%= datetime_select f, :starts_at, default: today(@date), builder: fn b -> %>
     <%= label f, :starts_at, class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
     <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs mb-2" for="grid-state">
           Year
         </label>
@@ -31,7 +32,7 @@
         </div>
       </div>
 
-      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs mb-2" for="grid-state">
           Month
         </label>
@@ -43,7 +44,7 @@
         </div>
       </div>
 
-      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs mb-2" for="grid-state">
           Day
         </label>
@@ -55,7 +56,7 @@
         </div>
       </div>
 
-      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs mb-2" for="grid-state">
           Hour
         </label>
@@ -67,7 +68,7 @@
         </div>
       </div>
 
-      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs mb-2" for="grid-state">
           Minute
         </label>
@@ -84,7 +85,7 @@
   <%= datetime_select f, :ends_at, default: tomorrow(@date), builder: fn b -> %>
     <%= label f, :ends_at, class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
     <div class="flex flex-wrap -mx-3 mb-6">
-      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs mb-2" for="grid-state">
           Year
         </label>
@@ -96,7 +97,7 @@
         </div>
       </div>
 
-      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs mb-2" for="grid-state">
           Month
         </label>
@@ -108,7 +109,7 @@
         </div>
       </div>
 
-      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs mb-2" for="grid-state">
           Day
         </label>
@@ -120,7 +121,7 @@
         </div>
       </div>
 
-      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs mb-2" for="grid-state">
           Hour
         </label>
@@ -132,7 +133,7 @@
         </div>
       </div>
 
-      <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+      <div class="w-full sm:w-1/5 px-3 mb-6 sm:mb-0">
         <label class="block uppercase tracking-wide text-gray-700 text-xs mb-2" for="grid-state">
           Minute
         </label>
@@ -143,10 +144,10 @@
           </div>
         </div>
       </div>
+      <p class="text-red-500 text-xs px-3 pt-3"><%= error_tag f, :ends_at %></p>
     </div>
   <% end %>
 
-  <p class="text-red-500 text-xs italic"><%= error_tag f, :ends_at %></p>
 
   <%= submit "Save", phx_disable_with: "Saving...", class: "bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded mt-2" %>
 </form>

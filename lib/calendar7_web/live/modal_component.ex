@@ -10,7 +10,7 @@ defmodule Calendar7Web.ModalComponent do
       phx-target="#<%= @id %>"
       >
 
-      <div class="phx-modal-content">
+      <div class="phx-modal-content rounded-lg max-w-xl">
         <%= live_patch raw("&times;"), to: @return_to, class: "phx-modal-close" %>
         <%= live_component @socket, @component, @opts %>
       </div>
