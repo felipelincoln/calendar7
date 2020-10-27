@@ -14,7 +14,8 @@ config :calendar7,
 config :calendar7, :pow,
   user: Calendar7.Users.User,
   repo: Calendar7.Repo,
-  routes_backend: Calendar7Web.Pow.Routes
+  routes_backend: Calendar7Web.Pow.Routes,
+  web_module: Calendar7Web
 
 # Configures the endpoint
 config :calendar7, Calendar7Web.Endpoint,
